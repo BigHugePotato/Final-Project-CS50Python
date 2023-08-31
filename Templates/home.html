@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="jumbotron text-center">
+                    <h1 class="display-4">Welcome, {{ current_user.username }}!</h1>
+                    <p class="lead">This is your task tracking system. Your most important tasks are listed below.</p>
+                    <hr class="my-4">
+                    <a class="btn btn-primary btn-lg" href="{{ url_for('tasks') }}" role="button">Manage Tasks</a>
+                </div>
+            </div>
+            <div class="col-12">
+                <h2>Your Most Important Tasks</h2>
+                {% for task in important_tasks %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ task.title }}</h5>
+                        <p class="card-text">{{ task.content }}</p>
+                        <p class="card-text"><small class="text-muted">Posted on {{ task.date_posted.strftime("%Y-%m-%d") }}</small></p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="alert alert-info" role="alert">
+                    You do not have any important tasks at the moment. Visit the task management page to create new tasks.
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
